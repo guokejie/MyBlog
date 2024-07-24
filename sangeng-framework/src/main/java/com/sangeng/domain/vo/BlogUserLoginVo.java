@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class BlogUserLoginVo {
 
-    private String data;
+    private String token;
     private UserInfoVo userInfo;
 }
