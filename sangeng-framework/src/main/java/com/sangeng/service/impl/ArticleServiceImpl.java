@@ -42,7 +42,9 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         queryWrapper.orderByDesc(Article::getViewCount);
         // 最多只查询10条
         Page<Article> page = new Page<>(SystemConstants.ARTICLE_STATUS_CURRENT, SystemConstants.ARTICLE_STATUS_SIZE);
+        // 最终查询的结果会封装到这个page中
         page(page, queryWrapper);
+        // 查到的列表数据
         List<Article> articles = page.getRecords();
         List<HotArticleVo> vs = BeanCopyUtils.copyBeanList(articles, HotArticleVo.class);
         return ResponseResult.okResult(vs);

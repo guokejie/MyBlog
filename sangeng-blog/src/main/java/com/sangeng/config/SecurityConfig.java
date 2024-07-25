@@ -44,6 +44,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/login").anonymous()
+                .antMatchers("/logout").authenticated()
                 .antMatchers("/link/getAllLink").authenticated()
                 .anyRequest().permitAll();
         // 配置异常处理器
