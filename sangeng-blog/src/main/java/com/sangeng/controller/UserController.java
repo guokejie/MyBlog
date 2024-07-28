@@ -1,5 +1,6 @@
 package com.sangeng.controller;
 
+import com.sangeng.annotation.SystemLog;
 import com.sangeng.domain.ResponseResult;
 import com.sangeng.domain.entity.User;
 import com.sangeng.service.UserService;
@@ -21,6 +22,7 @@ public class UserController {
 
     // 请求体中json格式的参数
     @PutMapping("/userInfo")
+    @SystemLog(businessName = "更新用户信息")
     public ResponseResult updateUserInfo(@RequestBody User user){
         return userService.updateUserInfo(user);
     }
