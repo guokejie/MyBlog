@@ -5,10 +5,7 @@ import com.sangeng.domain.entity.Article;
 import com.sangeng.service.ArticleService;
 import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -39,8 +36,14 @@ public class ArticleController {
 
     // query形式是 ?name=sg 这种，路径形式的参数要加如下的注解
     @GetMapping("/{id}")
-    public ResponseResult getArticleDetail(@PathVariable("id") Long id){
+    public ResponseResult getArticleDetail(@PathVariable("id") Long id) {
         return articleService.getArticleDetail(id);
+    }
+
+
+    @PutMapping("/updateViewCount/{id}")
+    public ResponseResult updateViewCount(@PathVariable("id") Long id) {
+        return articleService.updateViewCount(id);
     }
 
 
