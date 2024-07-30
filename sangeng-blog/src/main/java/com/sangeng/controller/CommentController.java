@@ -28,9 +28,9 @@ public class CommentController {
 
 
     @GetMapping("/linkCommentList")
-    public ResponseResult linkCommentList(Integer pageNum,Integer pageSize){
+    public ResponseResult linkCommentList(Integer pageNum, Integer pageSize) {
         //commentService是我们刚刚实现文章的评论区发送评论功能时(当时用的是addComment方法，现在用commentList方法)，写的类
         //SystemConstants是我们写的用来解决字面值的常量类，Article_LINK代表1
-        return commentService.commentList(SystemConstants.LINK_COMMENT,null,pageNum,pageSize);
+        return commentService.commentList(SystemConstants.LINK_COMMENT, null, pageNum, pageSize);
     }
 }
