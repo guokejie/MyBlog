@@ -14,6 +14,7 @@ import com.sangeng.service.LoginService;
 import com.sangeng.service.MenuService;
 import com.sangeng.service.RoleService;
 import com.sangeng.utils.BeanCopyUtils;
+import com.sangeng.utils.RedisCache;
 import com.sangeng.utils.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
@@ -36,6 +37,8 @@ public class LoginController {
 
     @Autowired
     private RoleService roleService; // 角色信息
+
+
 
 
     // TODO:post请求要从请求体中获取
@@ -66,7 +69,7 @@ public class LoginController {
     }
 
     @GetMapping("/getRouters")
-    public ResponseResult<RoutersVo> getRouters(){
+    public ResponseResult<RoutersVo> getRouters() {
         // 获取用户id
         Long userId = SecurityUtils.getUserId();
         // 查询menu，如果是tree的形式
@@ -76,4 +79,8 @@ public class LoginController {
 
     }
 
+    @PostMapping("/user/logout")
+    public ResponseResult logout() {
+        return loginService.logout();
+    }
 }

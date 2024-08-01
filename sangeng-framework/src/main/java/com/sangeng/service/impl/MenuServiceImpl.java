@@ -38,7 +38,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
         }// 否则返回其所具有的权限
 
 
-        return getBaseMapper().selectPermsByUserId(id);
+        return getBaseMapper().selectPermsByOther(id);
     }
 
     @Override
@@ -60,7 +60,9 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
 
     private List<Menu> builderMenuTree(List<Menu> menus, Long parentId) {
         List<Menu> menuTree = menus.stream()
+                //过滤找出父菜单树，也就是第一层
                 .filter(menu -> menu.getParentId().equals(parentId))
+                //xxgetChildren是我们在下面写的方法，用于获取子菜单的List集合
                 .map(menu -> menu.setChildren(getChildren(menu, menus)))
                 .collect(Collectors.toList());
         return menuTree;
@@ -68,7 +70,9 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
 
     private List<Menu> getChildren(Menu menu, List<Menu> menus) {
         List<Menu> childrenList = menus.stream()
+                //通过过滤得到子菜单
                 .filter(m -> m.getParentId().equals(menu.getId()))
+                //如果有三层菜单的话，也就是子菜单的子菜单，我们就用下面那行递归(自己调用自己)来处理
                 .map(m -> m.setChildren(getChildren(m, menus)))
                 .collect(Collectors.toList());
         return childrenList;
