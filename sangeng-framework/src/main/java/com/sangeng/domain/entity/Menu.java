@@ -3,11 +3,16 @@ package com.sangeng.domain.entity;
 import java.util.Date;
 
 import java.io.Serializable;
+import java.util.List;
+
+import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.experimental.Accessors;
+
 /**
  * 菜单权限表(Menu)表实体类
  *
@@ -19,7 +24,8 @@ import com.baomidou.mybatisplus.annotation.TableName;
 @AllArgsConstructor
 @NoArgsConstructor
 @TableName("sys_menu")
-public class Menu  {
+@Accessors(chain = true) // 允许链式编程，set方法放回当前对象本身
+public class Menu {
     //菜单ID@TableId
     private Long id;
 
@@ -55,7 +61,11 @@ public class Menu  {
     private Date updateTime;
     //备注
     private String remark;
-    
+
     private String delFlag;
-    
+
+    //由于数据库没有children字段，所以我们要添加@TableField(exist = false)注解让mybatis在查表时不查询这个字段
+    @TableField(exist = false)
+    private List<Menu> children;
+
 }
